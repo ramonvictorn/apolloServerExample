@@ -18,16 +18,32 @@ const typeDefs = gql`
     assets: [String],
   }
 
+  type TrainingsUsers {
+    idTrainingUser: ID,
+    idUser: Int,
+    idClient:Int,
+    trainings: [Training]
+  }
+
   type Query {
     training(idTraining:Int): Training, 
+    trainingsUsers(idUser:Int): TrainingsUsers,
   }
 `;
 
 const resolvers = {
     Query: {
-        training(obj,args){ 
-          return data.getData('trainings', 'idTraining', args.idTraining);
-        }
+        trainingsUsers(obj,args){
+          return data.getData('trainingsUsers', 'idUser', args.idUser); 
+        },
+        // training(obj,args){ 
+        //   return data.getData('trainings', 'idTraining', args.idTraining);
+        // }
+    },
+    TrainingsUsers: {
+      trainings: function(obj,args){
+        return data.getData('trainings', 'idTraining', obj.idsTrainings);
+      }
     },
     Training: {
       exercise: function(obj,args){

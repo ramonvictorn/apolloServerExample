@@ -1,16 +1,4 @@
 const data = {
-    books : [
-        {
-            idBook: 1,
-            title: 'Harry Potter and the Chamber of Secrets',
-            idAuthor: 1,
-        },
-        {
-            idBook:2,
-            title: 'Jurassic Park',
-            idAuthor: 2,
-        },
-    ],
     authors : [
         {
             idAuthor:1,
@@ -19,6 +7,26 @@ const data = {
         {
             idAuthor:2,
             name:'tonnioli'
+        }
+    ],
+    client: [
+        {
+            idClient:1,
+            name:'Gym 1'
+        }
+    ],
+    users:[
+        {
+            idUser:1,
+            idClient:1,
+            name:'usuario Ramon',
+        }
+    ],
+    trainingsUsers:[
+        {
+            idUser:1,
+            idClient:1,
+            idsTrainings:[1,2]
         }
     ],
     trainings:[
