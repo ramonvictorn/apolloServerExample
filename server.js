@@ -1,6 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server');
 const data = require('./data.js');
-
+const getMoviments = require('./getMoviments.js');
 const typeDefs = gql`
   type Training {
     idTraining: ID,
@@ -15,6 +15,7 @@ const typeDefs = gql`
   type Moviment {
     idMoviment: ID,
     name: String,
+    muscle: String,
     assets: [String],
   }
 
@@ -51,13 +52,37 @@ const resolvers = {
       }
     },
     Exercise:{
-      moviment : function(obj,args){
-        return data.getData('moviments', 'idMoviment', obj.idMoviment);
+      moviment : async function(obj,args){
+        return promiseGetMoviment();
+        // return teste;  
+        //return promiseData();
+        //return data.getData('moviments', 'idMoviment', obj.idMoviment);
+        //return  await db.query('SELECT name FROM moviments;',null,async (err,data)=>{return data.rows});
       }
     }
 };
 
+let promiseGetMoviment = () => {
+  return new Promise((resolve, reject) => {
+      getMoviments({},(data) => {
+        resolve(data);
+      });
+  });
+};
+//const getMovimentModel = require('./src/core/models/getMoviments.js');
+let promiseData = (args) => {
+    return new Promise((resolve, reject) => {
+        getMoviments({},(data) => {
+            console.log('aaa', data)
+            resolve(data);
+        });
+    });
+};
+
 const server = new ApolloServer({ typeDefs, resolvers });
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
+const db = require('./db.js');
+db.initDb(()=>{
+  server.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`);
+  });
+})
