@@ -5,7 +5,7 @@ function getMoviments(params,cb){
         id:params.id,
     }
     let values = [context.id]
-    let query = `SELECT * FROM moviments`
+    let query = `SELECT * FROM moviments where id_moviment = any(ARRAY[${params}]);`
     db.query(query,null,(err,data)=>{
         console.log("no return ", data.rows)
         cb(data.rows)
