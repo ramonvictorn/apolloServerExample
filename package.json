@@ -9,6 +9,6 @@
   "author": "Ramon Victor",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.8.1"
+    "apollo-server": "^2.14.2"
   }
 }
